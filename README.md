@@ -119,3 +119,8 @@ StdAPI is built with a simple idea:
 
 > Make powerful APIs accessible  
 > without making developers fight complexity.
+
+## 📦 Installation
+
+```bash
+pip install StdAPI
