@@ -81,12 +81,6 @@ just use the API.
 
 ---
 
-## 📦 Installation
-
-```bash
-pip install indiayz
-
-
 ## Documentation
 
 - Interactive API docs (Swagger UI)
@@ -126,3 +120,9 @@ StdAPI is built with a simple idea:
 
 > Make powerful APIs accessible  
 > without making developers fight complexity.
+
+
+## 📦 Installation
+
+```bash
+pip install indiayz
