@@ -68,6 +68,25 @@ just use the API.
 
 ---
 
+## ✨ Current Features
+
+- 🔍 **Wikipedia Search**  
+  Fetch real Wikipedia summaries and metadata.
+
+- 💬 **Random Quotes**  
+  Get inspirational quotes via a simple API.
+
+- 🎬 **Media Downloading**  
+  Download media (mp4 / mp3) from supported platforms using the Indiayz backend.
+
+---
+
+## 📦 Installation
+
+```bash
+pip install indiayz
+
+
 ## Documentation
 
 - Interactive API docs (Swagger UI)
