@@ -1,111 +1,124 @@
-<div align="center">
-⚡ StdAPI
-<img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge"> <img src="https://img.shields.io/badge/License-Apache%202.0-blue?style=for-the-badge"> <img src="https://img.shields.io/badge/Built%20For-Developers-black?style=for-the-badge">
+# ⚡ StdAPI
 
-<br><br>
+> One backend. Real APIs. Built for developers who actually ship.
 
-🧠 One Backend • Real APIs • No Noise
+StdAPI is a **backend-first API platform** that centralizes
+high-utility developer APIs into one **clean, stable, predictable system**.
 
-A unified API platform built for developers who actually ship.
+No frontend gimmicks.  
+No fake “AI startup” drama.  
+Just APIs you actually use in real projects.
 
-</div>
-if (api.isUseful() == false) {
-    delete(api);
-}
+---
 
-🚀 What is StdAPI?
+## ❓ What is StdAPI?
 
-StdAPI is a backend-first API platform
-designed to centralize high-utility developer APIs under one clean system.
+StdAPI is designed to be the **last backend utility layer** you need.
 
-No frontend gimmicks.
-No fake “AI startup” drama.
-Just APIs you actually use.
+Instead of:
+- wiring dozens of random APIs
+- copy-pasting bot logic
+- rewriting the same backend again & again
 
-🧩 Why StdAPI exists
+StdAPI gives you **one standard backend** for automation, AI, media, and search.
 
-Most developers face the same pain:
+---
 
-🟥 Too many random APIs
-🟥 Unstable free services
-🟥 Copy-paste bot code
-🟥 Same logic rewritten again & again
+## 🧠 Why StdAPI exists
 
-StdAPI fixes this by standardizing the boring stuff.
+Most developers face the same pain repeatedly:
 
-🛠 What lives inside StdAPI?
+- ❌ Too many random APIs for basic tasks  
+- ❌ Unstable free services  
+- ❌ Same logic rewritten in every bot or script  
+- ❌ Different auth, limits, formats everywhere  
 
-Only work-grade APIs — nothing else.
+StdAPI fixes this by **standardizing the boring stuff — once**.
 
-• AI chat & automation (g4f)
-• Media & video tools (yt-dlp)
-• Search & knowledge utilities
-• Helper APIs for bots & scripts
+---
 
+## 🧰 What lives inside StdAPI?
 
-If it doesn’t help:
+Only **work-grade APIs** — nothing else.
 
-VS Code scripts
+- 🤖 AI chat & automation (g4f)
+- 🎬 Media & video tools (yt-dlp)
+- 🔍 Search & knowledge utilities
+- 🧩 Helper APIs for bots & scripts
 
-Telegram bots
+If an API doesn’t help:
+- VS Code scripts  
+- Telegram bots  
+- Automation workflows  
 
-Backend automation
+…it does **not** belong here.
 
-👉 it doesn’t belong here.
+---
 
-🧠 Design Philosophy
-
-StdAPI is built like infrastructure, not a demo.
-
-✔ Backend-first
-✔ Predictable responses
-✔ Minimal surface area
-✔ Stable interfaces
-✔ Long-term support mindset
+## 🧱 Architecture (High Level)
 
 
-No breaking changes just to look cool.
+Designed so **complexity does not grow with features**.
 
-🏗 Architecture (high-level)
-stdapi/
- ├─ core/        → shared logic & rules
- ├─ ai/          → chat & intelligence
- ├─ media/       → video / download tools
- ├─ search/      → search & knowledge
- ├─ automation/  → helpers & utilities
- └─ api/         → HTTP layer (FastAPI)
+---
 
+## 🧠 Design Philosophy
 
-Modular by design.
-Scales without turning ugly.
+StdAPI is built like infrastructure.
 
-⚙️ Who should use this?
+- Predictable APIs
+- Stable behavior
+- No random breaking changes
+- Backend-first (no frontend dependency)
 
-✔ Backend developers
-✔ Bot developers
-✔ Automation builders
-✔ Indie hackers
-✔ Students who want real systems
+If an API does **not solve a real developer problem**,  
+it does not belong in StdAPI.
 
-If you like boring, stable systems — this is for you.
+---
 
-📜 License
+## 🚀 Use Cases
+
+StdAPI is built for:
+
+- Telegram bots
+- Automation scripts
+- Backend utilities
+- AI-powered services
+- Internal tools & experiments
+
+If it runs on a server, StdAPI fits.
+
+---
+
+## 🛣 Roadmap (Simple & Honest)
+
+- Phase 1 — Core APIs (AI, media, search)
+- Phase 2 — 30 high-utility endpoints
+- Phase 3 — Stability & performance
+- Phase 4 — Community contributions
+
+Growth is **planned**, not rushed.
+
+---
+
+## 📜 License
+
 Apache License 2.0
-Commercial use allowed
-Modification allowed
-Attribution required
 
-👤 Author
+You are free to:
+- ✔ Use commercially
+- ✔ Modify & redistribute
+- ✔ Integrate into closed-source systems
 
-STD-DEEPANSHU
+With proper attribution.
 
-"Make backend boring.
-Boring systems scale best."
+---
 
-<div align="center">
+## 👤 Author
 
-⭐ If StdAPI saves you time — star it
-🍴 Fork it if you build on it
-🧠 Use it if you hate chaos
+**STD-DEEPANSHU**
 
-</div>
+StdAPI has one simple goal:
+
+> Make backend development boring —  
+> because boring systems scale best.
