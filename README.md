@@ -24,7 +24,6 @@ Built for:
 ---
 
 ## Why use StdAPI?
-
 Most projects end up needing the same things:
 
 - chat & text processing  
@@ -120,9 +119,3 @@ StdAPI is built with a simple idea:
 
 > Make powerful APIs accessible  
 > without making developers fight complexity.
-
-
-## 📦 Installation
-
-```bash
-pip install indiayz
