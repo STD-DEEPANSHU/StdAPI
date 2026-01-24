@@ -1,11 +1,7 @@
 import os
 import requests
 from typing import Any, Dict, Optional
-
-
-class StdAPIError(Exception):
-    """Base exception for StdAPI"""
-    pass
+from .exceptions import StdAPIError
 
 
 class StdAPIClient:
