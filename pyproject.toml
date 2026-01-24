@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "StdAPI"
+version = "0.1.0"
+description = "Unified open-source AI toolkit with a clean, modular Python SDK"
+readme = "README.md"
+requires-python = ">=3.9"
+
+license = { text = "Apache-2.0" }
+
+authors = [
+  { name = "STD-DEEPANSHU", email = "support@deepanshu.in" }
+]
+
+keywords = [
+  "ai",
+  "llm",
+  "machine-learning",
+  "sdk",
+  "open-source",
+  "artificial-intelligence"
+]
+
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Typing :: Typed"
+]
+
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "black",
+  "ruff",
+  "mypy"
+]
+
+[project.urls]
+Homepage = "https://github.com/STD-DEEPANSHU/StdAPI"
+Repository = "https://github.com/STD-DEEPANSHU/StdAPI"
+Issues = "https://github.com/STD-DEEPANSHU/StdAPI/issues"
+Documentation = "https://github.com/STD-DEEPANSHU/StdAPI#readme"
+
+[tool.setuptools]
+packages = { find = { exclude = ["tests*"] } }
+
+[tool.setuptools.package-data]
+indiayz = ["py.typed"]
+
+[tool.mypy]
+strict = true
