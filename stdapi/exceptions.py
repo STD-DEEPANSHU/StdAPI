@@ -1,3 +1,3 @@
-class STDAPIError(Exception):
-    """Base exception for STDAPI"""
+class StdAPIError(Exception):
+    """Base exception for StdAPI"""
     pass
