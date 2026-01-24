@@ -14,18 +14,10 @@ class StdAPIClient:
         base_url: Optional[str] = None,
         timeout: int = 15,
     ):
-        """
-        StdAPI client configuration
-
-        Args:
-            base_url (str, optional): Override API base URL
-            timeout (int): Request timeout in seconds
-        """
-
         self.base_url = (
             base_url
             or os.getenv("STDAPI_BASE_URL")
-            or "https://stdapi-backend.herokuapp.com"
+            or "https://api.stdapi.dev"   
         ).rstrip("/")
 
         self.timeout = timeout
@@ -33,34 +25,34 @@ class StdAPIClient:
     def get(
         self,
         path: str,
-        params: Optional[Dict[str, Any]] = None
+        params: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         try:
-            response = requests.get(
+            r = requests.get(
                 f"{self.base_url}{path}",
                 params=params,
                 timeout=self.timeout,
             )
-            response.raise_for_status()
-            return response.json()
-
+            r.raise_for_status()
+            return r.json()
         except requests.exceptions.RequestException as e:
             raise StdAPIError("Failed to connect to StdAPI backend") from e
 
     def post(
         self,
         path: str,
-        json: Optional[Dict[str, Any]] = None
-    ) -> Dict[str, Any]:
+        json: Optional[Dict[str, Any]] = None,
+        stream: bool = False,
+    ):
         try:
-            response = requests.post(
+            r = requests.post(
                 f"{self.base_url}{path}",
                 json=json,
                 timeout=self.timeout,
+                stream=stream,
             )
-            response.raise_for_status()
-            return response.json()
-
+            r.raise_for_status()
+            return r
         except requests.exceptions.RequestException as e:
             raise StdAPIError("Failed to connect to StdAPI backend") from e
 
