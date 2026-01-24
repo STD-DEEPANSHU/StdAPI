@@ -1,3 +1,3 @@
 class STDAPIError(Exception):
-    """Base exception for STDAPI SDK"""
+    """Base exception for STDAPI"""
     pass
