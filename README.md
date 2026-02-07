@@ -76,7 +76,7 @@ just use the API.
   Get inspirational quotes via a simple API.
 
 - 🎬 **Media Downloading**  
-  Download media (mp4 / mp3) from supported platforms using the Indiayz backend.
+  Download media (mp4 / mp3) from supported platforms using the stdapi backend.
 
 ---
 
