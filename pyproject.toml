@@ -3,9 +3,9 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "StdAPI"
+name = "stdapi"
 version = "0.0.1"
-description = "Unified open-source AI toolkit with a clean, modular Python SDK"
+description = "Python SDK for StdAPI - media downloader and API client"
 readme = "README.md"
 requires-python = ">=3.9"
 
@@ -16,12 +16,11 @@ authors = [
 ]
 
 keywords = [
-  "ai",
-  "llm",
-  "machine-learning",
+  "api",
   "sdk",
-  "open-source",
-  "artificial-intelligence"
+  "downloader",
+  "media",
+  "python"
 ]
 
 classifiers = [
@@ -36,7 +35,9 @@ classifiers = [
   "Typing :: Typed"
 ]
 
-dependencies = []
+dependencies = [
+  "requests>=2.28.0"
+]
 
 [project.optional-dependencies]
 dev = [
@@ -50,13 +51,12 @@ dev = [
 Homepage = "https://github.com/STD-DEEPANSHU/StdAPI"
 Repository = "https://github.com/STD-DEEPANSHU/StdAPI"
 Issues = "https://github.com/STD-DEEPANSHU/StdAPI/issues"
-Documentation = "https://github.com/STD-DEEPANSHU/StdAPI#readme"
 
 [tool.setuptools]
 packages = { find = { exclude = ["tests*"] } }
 
 [tool.setuptools.package-data]
-indiayz = ["py.typed"]
+stdapi = ["py.typed"]
 
 [tool.mypy]
 strict = true
