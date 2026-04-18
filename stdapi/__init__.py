@@ -1,9 +1,11 @@
-from .media import download as media_download
-from .client import StdAPIClient, StdAPIError
-from .client import StdAPI
+from .media import info, download_link, download_file
+from .client import StdAPIClient
+from .exceptions import StdAPIError
 
 __all__ = [
-    "media_download",
+    "info",
+    "download_link",
+    "download_file",
     "StdAPIClient",
     "StdAPIError",
 ]
