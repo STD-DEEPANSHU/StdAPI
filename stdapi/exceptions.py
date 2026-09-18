@@ -1,24 +1,15 @@
 class StdAPIError(Exception):
-    """Base exception for StdAPI"""
+    """Base exception for all StdAPI errors."""
+    pass
 
-    def __init__(
-        self,
-        message: str,
-        status_code: int | None = None,
-        response: str | None = None,
-    ):
-        super().__init__(message)
-        self.status_code = status_code
-        self.response = response
+class ConnectionError(StdAPIError):
+    """Raised when server connection fails or server is offline."""
+    pass
 
-    def __str__(self) -> str:
-        msg = super().__str__()
+class RateLimitError(StdAPIError):
+    """Raised when rate limit is exceeded (HTTP 429)."""
+    pass
 
-        if self.status_code is not None:
-            msg += f" | Status: {self.status_code}"
-
-        if self.response:
-            preview = self.response.strip().replace("\n", " ")[:150]
-            msg += f" | Response: {preview}"
-
-        return msg
+class MediaExtractionError(StdAPIError):
+    """Raised when media extraction fails."""
+    pass
