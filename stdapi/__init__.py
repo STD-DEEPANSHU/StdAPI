@@ -1,70 +1,60 @@
 """
-StdAPI Python SDK v1.0.1
-Unified API client for Media, AI, Search, and Tools.
+StdAPI 2.0 — Universal Industrial Engine & Developer Suite
 """
-
+import asyncio
 from typing import Optional
-import aiohttp
-from .client import StdAPIClient
-from .media import MediaModule
-from .ai import AIModule
-from .search import SearchModule
-from .tools import ToolsModule
-from .results import Result
-from .exceptions import StdAPIError, ConnectionError, RateLimitError, MediaExtractionError
+from .extractors.registry import find_extractor
+from .core.stealth import StealthSession
+from .core.ffmpeg import FFmpegPipeline
+from .core.cookies import BrowserCookieExtractor
+from .core.cache import MediaCache
+from .extractors.base import MediaResponse, StreamInfo
 
-class StdAPI:
+
+class StdEngine:
     """
-    Main entry point for StdAPI.
-    
+    High-level local embedded engine.
     Usage:
         import asyncio
-        from stdapi import StdAPI
+        from stdapi import StdEngine
 
         async def main():
-            api = StdAPI()
-            # Media
-            media = await api.media.download("https://instagram.com/reel/...")
-            print(media.download_url)
-
-            # AI
-            res = await api.ai.chat("Explain Python generators")
-            print(res.response)
-
-            # Search
-            wiki = await api.search.wiki("Elon Musk")
-            print(wiki.extract)
+            engine = StdEngine()
+            media = await engine.extract("https://www.instagram.com/reel/xyz")
+            print(media.best_video_url)
 
         asyncio.run(main())
     """
-    def __init__(
-        self,
-        base_url: Optional[str] = None,
-        timeout: int = 25,
-        session: Optional[aiohttp.ClientSession] = None
-    ):
-        self.client = StdAPIClient(base_url=base_url, timeout=timeout, session=session)
-        self.media = MediaModule(self.client)
-        self.ai = AIModule(self.client)
-        self.search = SearchModule(self.client)
-        self.tools = ToolsModule(self.client)
+    def __init__(self, use_cache: bool = True):
+        self.cache = MediaCache() if use_cache else None
 
-    async def __aenter__(self):
-        return self
+    async def extract(self, url: str) -> MediaResponse:
+        if self.cache:
+            cached = self.cache.get(url)
+            if cached:
+                # Return cached MediaResponse
+                streams = [StreamInfo(**s) for s in cached.get("streams", [])]
+                cached["streams"] = streams
+                return MediaResponse(**cached)
 
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
-        await self.client.close()
+        extractor = find_extractor(url)
+        if not extractor:
+            raise ValueError(f"Unsupported media URL: {url}")
 
-    async def close(self):
-        await self.client.close()
+        result = await extractor.extract(url)
+
+        if self.cache:
+            self.cache.set(url, result.to_dict())
+
+        return result
 
 
 __all__ = [
-    "StdAPI",
-    "StdAPIClient",
-    "Result",
-    "StdAPIError",
-    "ConnectionError",
-    "RateLimitError",
-    "MediaExtractionError",
+    "StdEngine",
+    "find_extractor",
+    "StealthSession",
+    "FFmpegPipeline",
+    "BrowserCookieExtractor",
+    "MediaResponse",
+    "StreamInfo",
 ]

@@ -1,8 +1,8 @@
-# ⚡ StdAPI
+# ⚡ StdAPI 2.0 — The Industrial Media & Dev Engine
 
 <p align="center">
-  <strong>The Unified Developer & Bot Engine</strong><br>
-  <em>Asynchronous Python SDK & CLI for Media, AI, Search, and Automation.</em>
+  <strong>Universal Stealth Extractor • In-Process FFmpeg Pipeline • Model Context Protocol (MCP) Server</strong><br>
+  <em>The developer tool engineered for daily automation, bot builders, and AI-driven workflows.</em>
 </p>
 
 <p align="center">
@@ -14,16 +14,15 @@
 
 ---
 
-## 🚀 Why StdAPI?
+## ⚡ What Makes StdAPI 2.0 Different?
 
-Building Telegram bots, automation scripts, or microservices usually means juggling 10 different libraries and APIs. 
+Unlike brittle API wrappers that break within days, **StdAPI is a self-contained, local-first engine**:
 
-**StdAPI gives you everything under one standard, asynchronous interface:**
-- 🎬 **Media Downloader:** YouTube, Instagram Reels, TikTok, Twitter/X, Pinterest, Facebook.
-- 🤖 **AI Chat:** Free multi-model intelligence (`gpt-4o-mini`, `gemini`, `deepseek`).
-- 🔍 **Knowledge & Search:** Instant web search and Wikipedia extracts.
-- 🛠 **Developer Tools:** Lyrics finder, QR generator, URL shortener, IP info.
-- ⚡ **Bot-Ready:** Auto in-memory buffers (`BytesIO`) for zero-disk Telegram (Pyrogram/Telethon) and Discord uploads.
+1. 🛡️ **Stealth Network Engine (`core.stealth`):** Real Chrome/Safari TLS/JA3 fingerprint emulation + automated local browser cookie harvesting (Chrome, Edge, Firefox) to bypass Cloudflare, YouTube bot blocks, and Instagram login walls.
+2. 🎬 **Plugin Architecture (`extractors/`):** Clean, modular `yt-dlp` inspired plugins for Instagram Reels, YouTube, TikTok (No-Watermark), Twitter/X, and Pinterest.
+3. 🎞️ **In-Process FFmpeg Pipeline (`core.ffmpeg`):** Lossless stream muxing (combines 1080p/4K video with audio), 320kbps MP3 transcoding, video trimming, and ID3 album art tagging.
+4. 🤖 **Native Model Context Protocol (MCP):** Connects directly with **Claude Desktop**, **Cursor IDE**, and AI Coding Assistants.
+5. 💻 **Interactive Hacker TUI:** Beautiful terminal dashboard powered by Rich.
 
 ---
 
@@ -35,106 +34,84 @@ pip install -U stdapi
 
 ---
 
-## ⚡ 10-Second Quickstart
+## 🚀 3-Line Python Quickstart
 
 ```python
 import asyncio
-from stdapi import StdAPI
+from stdapi import StdEngine
 
 async def main():
-    async with StdAPI() as api:
-        # 1. Download Instagram Reel or YouTube Video
-        media = await api.media.download("https://www.instagram.com/reel/Cxxxxxx/", format="mp4")
-        print(f"Title: {media.title}")
-        print(f"Direct Stream: {media.download_url}")
-
-        # 2. Free AI Chat
-        ai_res = await api.ai.chat("Explain recursion in 2 sentences")
-        print(f"AI: {ai_res.response}")
-
-        # 3. Wikipedia Summary
-        wiki = await api.search.wiki("Artificial Intelligence")
-        print(f"Wiki: {wiki.extract}")
+    engine = StdEngine()
+    
+    # Extract any video (Instagram, YouTube, TikTok, etc.)
+    media = await engine.extract("https://www.instagram.com/reel/Cxxxxxx/")
+    print(f"Title: {media.title}")
+    print(f"Direct Stream: {media.best_video_url}")
 
 asyncio.run(main())
 ```
 
 ---
 
-## 🤖 1-Minute Telegram Bot Recipe (Pyrogram)
+## 🤖 Model Context Protocol (MCP) Setup for Claude / Cursor
 
-Send downloaded videos or photos directly to users without saving files to disk:
+StdAPI includes an open-standard MCP server. To give **Claude Desktop** or **Cursor** superpowers to download and process media autonomously, add this to your `claude_desktop_config.json`:
 
-```python
-from pyrogram import Client, filters
-from stdapi import StdAPI
-
-bot = Client("std_bot", api_id=12345, api_hash="xyz", bot_token="TOKEN")
-api = StdAPI()
-
-@bot.on_message(filters.regex(r"https?://.*"))
-async def handle_download(client, message):
-    url = message.text
-    status = await message.reply_text("⚡ Extracting media with StdAPI...")
-    
-    # Directly download into memory buffer
-    video_buffer = await api.media.get_buffer(url, format="mp4")
-    
-    await message.reply_video(video_buffer, caption="Downloaded via @StdAPI")
-    await status.delete()
-
-bot.run()
+```json
+{
+  "mcpServers": {
+    "stdapi": {
+      "command": "stdapi",
+      "args": ["mcp"]
+    }
+  }
+}
 ```
 
 ---
 
-## 💻 Terminal CLI Usage
-
-StdAPI comes with a lightning-fast CLI out of the box:
+## 💻 Terminal CLI & TUI
 
 ```bash
-# Extract media link
-stdapi media "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+# Launch interactive diagnostics dashboard
+stdapi tui
 
-# Ask AI
-stdapi ai "Write a python regex for email validation"
+# Extract direct stream URL
+stdapi extract "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 
-# Search Web & Wikipedia
-stdapi search "Quantum Computing" --wiki
+# Convert video to 320k MP3 using FFmpeg
+stdapi convert input_video.mp4 output_song.mp3
 
-# Developer Tools
-stdapi tools --lyrics "Shape of You"
-stdapi tools --shorten "https://very-long-url.com/something"
+# Start MCP stdio server
+stdapi mcp
 ```
 
 ---
 
-## 📂 Modules & Methods
+## 🏗️ Architecture
 
-| Module | Method | Description |
-| :--- | :--- | :--- |
-| `api.media` | `info(url)` | Extract title, duration, author, thumbnail |
-| `api.media` | `download(url, format="mp4")` | Get direct stream link (mp4 or mp3) |
-| `api.media` | `get_buffer(url, format="mp4")` | Direct in-memory `BytesIO` for bots |
-| `api.ai` | `chat(prompt, model="gpt-4o-mini")` | Multi-model chat completions |
-| `api.search` | `web(query, limit=5)` | Instant web search results |
-| `api.search` | `wiki(topic)` | Wikipedia summary and thumbnail |
-| `api.tools` | `lyrics(song)` | Full song lyrics and cover art |
-| `api.tools` | `qr(text)` | Generate QR code image URL |
-| `api.tools` | `shorten(url)` | Shorten long URLs |
-| `api.tools` | `ip(ip_address)` | IP Geolocation & ISP details |
+```
+stdapi/
+├── core/
+│   ├── stealth.py      # TLS & browser fingerprint spoofing
+│   ├── cookies.py      # Local browser cookie harvester
+│   ├── ffmpeg.py       # Stream muxing & audio transcoding
+│   └── cache.py        # SQLite persistent cache
+├── extractors/
+│   ├── base.py         # BaseExtractor dataclass & regex
+│   ├── instagram.py    # Instagram Reels, Posts & Carousels
+│   ├── youtube.py      # YouTube adaptive streams
+│   ├── tiktok.py       # TikTok watermark-free streams
+│   ├── twitter.py      # Twitter/X video extractor
+│   └── pinterest.py    # Pinterest HD media
+├── mcp/
+│   └── server.py       # Model Context Protocol stdio server
+└── ui/
+    ├── tui.py          # Rich interactive dashboard
+    └── cli.py          # Unified CLI interface
+```
 
 ---
 
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!  
-Feel free to check [issues page](https://github.com/STD-DEEPANSHU/StdAPI/issues).
-
----
-
-## 📝 License
-
-Distributed under the Apache-2.0 License. See `LICENSE` for more information.
-
-Built with ❤️ by [STD-DEEPANSHU](https://github.com/STD-DEEPANSHU).
+## 📄 License
+Licensed under Apache-2.0. Developed by [STD-DEEPANSHU](https://github.com/STD-DEEPANSHU).
