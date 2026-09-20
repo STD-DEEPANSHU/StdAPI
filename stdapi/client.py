@@ -5,7 +5,7 @@ from typing import Optional, Dict, Any
 from .exceptions import StdAPIError, ConnectionError, RateLimitError
 from .results import Result
 
-DEFAULT_BASE_URL = "https://stdapi-bef2d35099cb.herokuapp.com"
+DEFAULT_BASE_URL = "https://stdapibackend-a29fecc9ce50.herokuapp.com"
 
 
 class StdAPIClient:

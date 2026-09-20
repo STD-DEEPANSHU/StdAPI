@@ -18,4 +18,4 @@ class AIModule:
         payload = {"prompt": prompt, "model": model}
         if system_prompt:
             payload["system_prompt"] = system_prompt
-        return await self.client._request("POST", "/ai/chat", json=payload)
+        return await self.client._request("POST", "/v1/ai/chat", json=payload)

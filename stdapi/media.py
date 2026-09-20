@@ -9,13 +9,11 @@ class MediaModule:
 
     async def info(self, url: str) -> Result:
         """Extract metadata (title, thumbnail, duration, uploader) from media URL."""
-        return await self.client._request("GET", "/media/info", params={"url": url})
+        return await self.client._request("GET", "/v1/media/analyze", params={"url": url})
 
     async def download(self, url: str, format: str = "mp4") -> Result:
         """Get direct high-speed download link for video (mp4) or audio (mp3)."""
-        if format not in ("mp4", "mp3"):
-            raise ValueError("format must be 'mp4' or 'mp3'")
-        return await self.client._request("GET", "/media/download", params={"url": url, "format_type": format})
+        return await self.client._request("GET", "/v1/media/download", params={"url": url})
 
     async def get_buffer(self, url: str, format: str = "mp4") -> BytesIO:
         """

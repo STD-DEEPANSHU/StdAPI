@@ -49,8 +49,32 @@ class StdEngine:
         return result
 
 
+# Core Remote SDK
+from .client import StdAPIClient
+from .media import MediaModule
+from .tools import ToolsModule
+from .ai import AIModule
+from .results import Result
+from .exceptions import StdAPIError, ConnectionError, RateLimitError
+
+_default_client = StdAPIClient()
+media = MediaModule(_default_client)
+tools = ToolsModule(_default_client)
+ai = AIModule(_default_client)
+
 __all__ = [
     "StdEngine",
+    "StdAPIClient",
+    "MediaModule",
+    "ToolsModule",
+    "AIModule",
+    "Result",
+    "StdAPIError",
+    "ConnectionError",
+    "RateLimitError",
+    "media",
+    "tools",
+    "ai",
     "find_extractor",
     "StealthSession",
     "FFmpegPipeline",
@@ -58,3 +82,4 @@ __all__ = [
     "MediaResponse",
     "StreamInfo",
 ]
+
