@@ -31,6 +31,16 @@ def main():
     p_convert.add_argument("input", help="Input file path")
     p_convert.add_argument("output", help="Output file path")
 
+    # agent command
+    p_agent = subparsers.add_parser("agent", help="Execute autonomous agent mission on laptop")
+    p_agent.add_argument("mission", help="Task for STD AI (e.g. 'dishabot bana ek chatbot', 'insta open kar')")
+
+    # hud command
+    subparsers.add_parser("hud", help="Launch native Cyber Virtual Desktop HUD window")
+
+    # clean command
+    subparsers.add_parser("clean", help="Scan and clean temporary junk cache files")
+
     # mcp command
     subparsers.add_parser("mcp", help="Start MCP server for Claude Desktop / Cursor IDE")
 
@@ -42,6 +52,7 @@ def main():
     if not args.command or args.command == "tui":
         show_diagnostics()
         sys.exit(0)
+
 
     if args.command == "mcp":
         asyncio.run(run_stdio_mcp_server())
@@ -73,16 +84,36 @@ def main():
 
         asyncio.run(do_extract())
 
-    elif args.command == "convert":
-        async def do_convert():
-            ok = await FFmpegPipeline.convert_to_audio(args.input, args.output)
-            if ok:
-                print(f"✓ Conversion complete: {args.output}")
-            else:
-                print("[Error] Conversion failed!")
+    elif args.command == "agent":
+        from ..agent import StdAgent
+        agent = StdAgent()
+        agent.run(args.mission)
 
-        asyncio.run(do_convert())
+    elif args.command == "hud":
+        from ..agent import StdAgent
+        agent = StdAgent()
+        agent.launch_hud()
+
+    elif args.command == "clean":
+        import shutil
+        from pathlib import Path
+        import os
+        temp_dir = Path(os.environ.get("TEMP", Path.home() / "AppData/Local/Temp"))
+        cleaned_mb = 0
+        if temp_dir.exists():
+            for item in temp_dir.iterdir():
+                try:
+                    if item.is_file() or item.is_symlink():
+                        sz = item.stat().st_size
+                        item.unlink(missing_ok=True)
+                        cleaned_mb += sz / (1024 * 1024)
+                    elif item.is_dir():
+                        shutil.rmtree(item, ignore_errors=True)
+                except Exception:
+                    pass
+        print(f"[+] System Junk Purged: {round(cleaned_mb, 1)} MB temp cache cleared.")
 
 
 if __name__ == "__main__":
     main()
+

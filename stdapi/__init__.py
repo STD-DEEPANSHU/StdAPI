@@ -54,6 +54,7 @@ from .client import StdAPIClient
 from .media import MediaModule
 from .tools import ToolsModule
 from .ai import AIModule
+from .agent import AgentModule, StdAgent
 from .results import Result
 from .exceptions import StdAPIError, ConnectionError, RateLimitError
 
@@ -61,6 +62,7 @@ _default_client = StdAPIClient()
 media = MediaModule(_default_client)
 tools = ToolsModule(_default_client)
 ai = AIModule(_default_client)
+agent = AgentModule(_default_client)
 
 __all__ = [
     "StdEngine",
@@ -68,6 +70,8 @@ __all__ = [
     "MediaModule",
     "ToolsModule",
     "AIModule",
+    "AgentModule",
+    "StdAgent",
     "Result",
     "StdAPIError",
     "ConnectionError",
@@ -75,6 +79,7 @@ __all__ = [
     "media",
     "tools",
     "ai",
+    "agent",
     "find_extractor",
     "StealthSession",
     "FFmpegPipeline",
@@ -82,4 +87,5 @@ __all__ = [
     "MediaResponse",
     "StreamInfo",
 ]
+
 
